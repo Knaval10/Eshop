@@ -1,0 +1,141 @@
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <!-- Top Bar -->
+  <div class="bg-[#1A1A1A] text-white text-xs">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span class="hidden sm:inline"
+          >Welcome to GadgetMart — Free shipping on orders over $50</span
+        >
+      </div>
+      <ul class="flex items-center gap-4">
+        <li><a href="#" class="hover:text-[#00B127] transition">Track Order</a></li>
+        <li><a href="#" class="hover:text-[#00B127] transition">Store Finder</a></li>
+        <li><a href="#" class="hover:text-[#00B127] transition">Help</a></li>
+        <li><a href="#" class="hover:text-[#00B127] transition">EN ▾</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="flex items-center gap-4">
+      <!-- Logo -->
+      <a routerLink="/" class="flex-shrink-0">
+        <span class="text-3xl font-extrabold tracking-tight text-[#00B127]">GadgetMart</span>
+      </a>
+
+      <!-- Category Dropdown -->
+      <button
+        class="hidden md:inline-flex items-center gap-2 px-4 py-2.5 bg-[#F1F1F1] hover:bg-gray-200 rounded-md text-sm font-semibold text-[#1A1A1A] transition"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+        Categories
+      </button>
+
+      <!-- Search -->
+      <form class="flex-1 flex items-stretch max-w-2xl">
+        <input
+          type="search"
+          placeholder="Search for products, brands and more..."
+          class="flex-1 px-4 py-2.5 border border-gray-300 rounded-l-md text-sm focus:outline-none focus:border-[#00B127]"
+        />
+        <button
+          class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-6 rounded-r-md transition flex items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <span class="hidden sm:inline">Search</span>
+        </button>
+      </form>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-5 ml-auto">
+        <a
+          href="#"
+          class="hidden md:flex items-center gap-2 text-sm text-[#1A1A1A] hover:text-[#00B127] transition"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+          <span class="leading-tight">
+            <span class="block text-[10px] text-gray-500">Hello</span>
+            <span class="block font-semibold">Login/Register</span>
+          </span>
+        </a>
+        <a
+          href="#"
+          class="relative text-[#1A1A1A] hover:text-[#00B127] transition"
+          aria-label="Wishlist"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+          <span
+            class="absolute -top-2 -right-2 bg-[#00B127] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
+            >2</span
+          >
+        </a>
+        <a
+          routerLink="/checkout"
+          class="relative flex items-center gap-2 text-[#1A1A1A] hover:text-[#00B127] transition"
+          aria-label="Cart"
+        >
+          <div class="relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-9v9"
+              />
+            </svg>
+            <span
+              class="absolute -top-2 -right-2 bg-[#00B127] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
+              >3</span
+            >
+          </div>
+          <span class="hidden md:inline text-sm font-semibold">Cart</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Secondary nav -->
+    <nav class="hidden md:flex items-center gap-6 mt-4 text-sm">
+      <a routerLink="/" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition">Home</a>
+      <a routerLink="/products" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition"
+        >Products</a
+      >
+      <a href="#" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition">Deals</a>
+      <a href="#" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition"
+        >New Arrivals</a
+      >
+      <a routerLink="/about" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition"
+        >About</a
+      >
+      <a href="#" class="ml-auto text-[#00B127] font-semibold">🔥 Flash Sale — Up to 50% off</a>
+    </nav>
+  </div>
+</header>
