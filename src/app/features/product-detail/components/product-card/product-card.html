@@ -1,0 +1,80 @@
+@let p = product();
+@let isCompact = compact();
+<article
+  class="group bg-white rounded-xl p-3 md:p-4 transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] flex flex-col relative border border-gray-100"
+>
+  <div class="flex items-start justify-between mb-2">
+    @if (p.badge === 'sale') {
+      <span class="bg-[#16c60c] text-white text-[10px] font-semibold px-2 py-0.5 rounded">{{
+        p.badgeText || 'Sale'
+      }}</span>
+    } @else if (p.badge === 'new') {
+      <span class="bg-[#111111] text-white text-[10px] font-semibold px-2 py-0.5 rounded">{{
+        p.badgeText || 'New'
+      }}</span>
+    } @else {
+      <span></span>
+    }
+    <button
+      aria-label="Add to wishlist"
+      class="w-7 h-7 rounded-full border border-gray-200 text-[#999999] hover:border-[#ff3b30] hover:text-[#ff3b30] flex items-center justify-center transition"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <div class="aspect-square bg-[#f9f9f9] rounded-lg overflow-hidden mb-3">
+    <img
+      [src]="p.image"
+      [alt]="p.name"
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+      loading="lazy"
+    />
+  </div>
+
+  <h4
+    class="text-sm font-medium text-[#111111] leading-snug line-clamp-2 min-h-10 hover:text-[#16c60c] cursor-pointer transition"
+  >
+    {{ p.name }}
+  </h4>
+
+  <div class="flex items-baseline gap-2 mt-2">
+    <span class="text-lg font-bold text-[#111111]">${{ p.price }}</span>
+    @if (p.oldPrice) {
+      <span class="text-xs text-[#999999] line-through">${{ p.oldPrice }}</span>
+    }
+  </div>
+
+  @if (!isCompact && p.shipping) {
+    <p class="text-xs text-[#16c60c] font-semibold mt-1.5">✓ {{ p.shipping }}</p>
+  }
+  @if (!isCompact && p.stockStatus) {
+    <div class="flex items-center gap-2 mt-1.5">
+      @switch (p.stockStatus) {
+        @case ('in') {
+          <span class="w-2 h-2 rounded-full bg-[#16c60c]"></span>
+          <span class="text-xs text-[#666666]">In stock</span>
+        }
+        @case ('pre-order') {
+          <span
+            class="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-yellow-100 px-2 py-0.5 rounded"
+            >Pre-Order</span
+          >
+        }
+        @case ('out') {
+          <span
+            class="text-[10px] font-bold uppercase tracking-wider text-[#666666] bg-gray-100 px-2 py-0.5 rounded"
+            >Out of Stock</span
+          >
+        }
+      }
+    </div>
+  }
+</article>

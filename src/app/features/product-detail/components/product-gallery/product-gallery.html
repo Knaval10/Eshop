@@ -1,0 +1,30 @@
+<div class="lg:col-span-5 bg-white rounded-2xl p-5 md:p-7">
+  <div class="relative">
+    <span
+      class="absolute top-2 left-2 z-10 bg-[#111111] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-md"
+      >New</span
+    >
+    <div
+      class="aspect-square bg-[#f9f9f9] rounded-xl overflow-hidden flex items-center justify-center"
+    >
+      <img
+        [src]="activeImage()"
+        [alt]="productName()"
+        class="w-full h-full object-cover transition duration-500"
+      />
+    </div>
+  </div>
+  <div class="grid grid-cols-5 gap-3 mt-5">
+    @for (img of gallery; track img; let i = $index) {
+      <button
+        (click)="activeImageIndex.set(i)"
+        class="aspect-square rounded-lg overflow-hidden border-2 transition"
+        [class]="
+          i === activeImageIndex() ? 'border-[#16c60c]' : 'border-gray-200 hover:border-gray-400'
+        "
+      >
+        <img [src]="img" [alt]="'View ' + (i + 1)" class="w-full h-full object-cover" />
+      </button>
+    }
+  </div>
+</div>

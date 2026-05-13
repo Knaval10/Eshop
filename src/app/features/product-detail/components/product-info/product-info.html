@@ -1,0 +1,139 @@
+<div class="lg:col-span-4 bg-white rounded-2xl p-5 md:p-7">
+  <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#111111] leading-tight">
+    {{ productName() }}
+  </h1>
+
+  <div class="flex items-center gap-3 mt-3">
+    <span class="text-yellow-400 text-sm">★★★★★</span>
+    <span class="text-xs text-[#999999]">(5 reviews)</span>
+    <span class="text-xs text-[#999999]">·</span>
+    <span class="text-xs text-[#16c60c] font-semibold">In stock</span>
+  </div>
+
+  <p class="text-3xl md:text-4xl font-bold text-[#111111] mt-5">
+    ${{ priceRange().min }}.00 <span class="text-[#999999] font-normal">–</span> ${{
+      priceRange().max
+    }}.00
+  </p>
+
+  <ul class="mt-5 space-y-2">
+    @for (f of features; track f) {
+      <li class="text-sm text-[#666666] flex items-start gap-2 leading-relaxed">
+        <svg class="w-4 h-4 text-[#16c60c] shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+          />
+        </svg>
+        <span>{{ f }}</span>
+      </li>
+    }
+  </ul>
+
+  <div class="flex gap-2 mt-5">
+    <span
+      class="bg-[#16c60c] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md"
+      >Free Shipping</span
+    >
+    <span
+      class="bg-[#ff9900] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md"
+      >Free Gift</span
+    >
+  </div>
+
+  <!-- Color variants -->
+  <div class="mt-6">
+    <p class="text-xs font-bold uppercase tracking-wider text-[#111111] mb-3">
+      Color: <span class="text-[#666666] font-medium normal-case">{{ activeVariant().color }}</span>
+    </p>
+    <div class="grid grid-cols-3 gap-3">
+      @for (v of variants; track v.color; let i = $index) {
+        <button
+          (click)="variantSelected.emit(i)"
+          class="rounded-xl border-2 p-2 text-left transition"
+          [class]="
+            i === activeVariantIndex()
+              ? 'border-[#16c60c] bg-[#16c60c]/5'
+              : 'border-gray-200 hover:border-gray-400'
+          "
+        >
+          <div class="w-full h-16 rounded-md overflow-hidden mb-2" [style.background-color]="v.hex">
+            <img
+              [src]="v.image"
+              [alt]="v.color"
+              class="w-full h-full object-cover mix-blend-multiply"
+            />
+          </div>
+          <p class="text-xs font-semibold text-[#111111] leading-tight">{{ v.color }}</p>
+          <p class="text-xs text-[#16c60c] font-bold mt-0.5">${{ v.price }}</p>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Memory size -->
+  <div class="mt-6">
+    <p class="text-xs font-bold uppercase tracking-wider text-[#111111] mb-3">
+      Memory Size:
+      <span class="text-[#666666] font-medium normal-case">{{
+        memoryOptions[activeMemoryIndex()]
+      }}</span>
+    </p>
+    <div class="flex flex-wrap gap-2">
+      @for (m of memoryOptions; track m; let i = $index) {
+        <button
+          (click)="memorySelected.emit(i)"
+          class="px-4 py-2 rounded-md border-2 text-sm font-semibold transition"
+          [class]="
+            i === activeMemoryIndex()
+              ? 'border-[#16c60c] bg-[#16c60c] text-white'
+              : 'border-gray-200 text-[#666666] hover:border-[#16c60c] hover:text-[#16c60c]'
+          "
+        >
+          {{ m }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Promotional offer -->
+  <div class="mt-6 bg-[#fff9e6] border border-[#ffe066] rounded-xl p-4 flex items-center gap-4">
+    <div
+      class="w-12 h-12 rounded-full bg-[#ff9900]/20 flex items-center justify-center text-2xl shrink-0"
+    >
+      🎁
+    </div>
+    <div class="flex-1">
+      <p class="text-sm font-semibold text-[#111111]">Buy 02 boxes get a Snack Tray</p>
+      <p class="text-sm font-semibold text-[#111111]">Buy 04 boxes get a free Block Toys</p>
+      <p class="text-xs text-[#999999] mt-1">Expires May 31, 2026</p>
+    </div>
+  </div>
+
+  <!-- Metadata -->
+  <div class="mt-6 pt-5 border-t border-gray-100 space-y-2 text-sm">
+    <p class="text-[#666666]">
+      <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">SKU:</span
+      >{{ sku }}
+    </p>
+    <p class="text-[#666666]">
+      <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">Category:</span
+      >{{ category }}
+    </p>
+    <p class="text-[#666666]">
+      <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">Brand:</span
+      >{{ brand }}
+    </p>
+  </div>
+
+  <!-- Social -->
+  <div class="mt-5 flex items-center gap-2">
+    <span class="text-xs font-bold uppercase tracking-wider text-[#111111] mr-2">Share:</span>
+    @for (s of socials; track s) {
+      <a
+        href="#"
+        class="w-9 h-9 rounded-full border border-gray-200 text-[#666666] hover:bg-[#16c60c] hover:text-white hover:border-[#16c60c] flex items-center justify-center text-sm font-bold transition"
+        >{{ s }}</a
+      >
+    }
+  </div>
+</div>

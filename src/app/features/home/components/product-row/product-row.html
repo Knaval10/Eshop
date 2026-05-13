@@ -1,0 +1,11 @@
+<section class="max-w-7xl mx-auto px-4 py-6">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-[#1A1A1A] uppercase tracking-wide">{{ title() }}</h2>
+    <a href="#" class="text-sm font-semibold text-[#00B127] hover:underline">View All →</a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    @for (p of products(); track p.id) {
+      <app-home-product-card [product]="p" />
+    }
+  </div>
+</section>

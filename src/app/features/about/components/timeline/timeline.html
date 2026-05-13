@@ -1,0 +1,29 @@
+<section>
+  <div class="max-w-4xl mb-10">
+    <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-3 block"
+      >Our Journey</span
+    >
+    <h2 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase leading-tight">
+      From a Retail Store to the Global Chain of Stores
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    <ul class="space-y-7 lg:border-r lg:border-gray-200 lg:pr-12">
+      @for (item of timelineLeft; track item.year) {
+        <li class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 md:gap-6">
+          <span class="text-xl md:text-2xl font-bold text-[#111111]">{{ item.year }}</span>
+          <p class="text-sm md:text-base text-[#666666] leading-relaxed">{{ item.description }}</p>
+        </li>
+      }
+    </ul>
+    <ul class="space-y-7">
+      @for (item of timelineRight; track item.year) {
+        <li class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 md:gap-6">
+          <span class="text-xl md:text-2xl font-bold text-[#111111]">{{ item.year }}</span>
+          <p class="text-sm md:text-base text-[#666666] leading-relaxed">{{ item.description }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+<section class="max-w-7xl mx-auto px-4 py-4">
+  <div class="bg-white rounded-lg shadow-sm py-4 px-6">
+    <div class="flex items-center gap-6 overflow-x-auto scrollbar-hide">
+      @for (brand of brands; track brand) {
+        <a
+          href="#"
+          class="shrink-0 px-4 py-2 text-gray-600 hover:text-[#00B127] font-bold text-lg transition"
+        >
+          {{ brand }}
+        </a>
+      }
+    </div>
+  </div>
+</section>

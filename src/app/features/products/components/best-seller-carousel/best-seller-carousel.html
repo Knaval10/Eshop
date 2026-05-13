@@ -1,0 +1,37 @@
+<div class="bg-white rounded-2xl p-5 md:p-6">
+  <div class="flex items-center justify-between mb-5">
+    <h3 class="text-lg md:text-xl font-bold uppercase tracking-wide text-[#111111]">
+      Best Seller in This Category
+    </h3>
+    <div class="flex gap-2">
+      <button
+        (click)="prev()"
+        aria-label="Previous"
+        class="w-9 h-9 rounded-full border border-gray-200 hover:bg-[#16c60c] hover:text-white hover:border-[#16c60c] text-[#666666] flex items-center justify-center transition"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button
+        (click)="next()"
+        aria-label="Next"
+        class="w-9 h-9 rounded-full border border-gray-200 hover:bg-[#16c60c] hover:text-white hover:border-[#16c60c] text-[#666666] flex items-center justify-center transition"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @for (product of visible(); track product.id) {
+      <app-product-card [product]="product" [compact]="true" />
+    }
+  </div>
+</div>

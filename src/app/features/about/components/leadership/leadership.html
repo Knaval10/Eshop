@@ -1,0 +1,42 @@
+<section>
+  <div class="flex items-end justify-between mb-8">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-2 block"
+        >Meet the team</span
+      >
+      <h2 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase">Leaderships</h2>
+    </div>
+    <a
+      href="#"
+      class="text-sm font-semibold text-[#111111] hover:text-[#16c60c] transition flex items-center gap-2"
+    >
+      View All
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17 8l4 4m0 0l-4 4m4-4H3"
+        />
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+    @for (member of team; track member.name) {
+      <article class="bg-white rounded-xl overflow-hidden hover:shadow-md transition">
+        <div class="aspect-4/5 overflow-hidden">
+          <img
+            [src]="member.image"
+            [alt]="member.name"
+            class="w-full h-full object-cover hover:scale-105 transition duration-500"
+          />
+        </div>
+        <div class="p-4">
+          <h4 class="font-semibold text-[#111111] text-base">{{ member.name }}</h4>
+          <p class="text-xs text-[#999999] uppercase tracking-wider mt-1">{{ member.role }}</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>

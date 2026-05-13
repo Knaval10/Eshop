@@ -1,0 +1,96 @@
+<div class="space-y-6">
+  <!-- Toolbar -->
+  <div
+    class="bg-white rounded-xl px-5 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+  >
+    <p class="text-sm text-[#666666]">
+      <span class="font-semibold text-[#111111]">{{ resultRange() }}</span> results
+    </p>
+    <div class="flex items-center gap-4 text-sm">
+      <div class="flex items-center gap-2">
+        <span class="text-[#666666]">Show:</span>
+        @for (n of perPageOptions; track n) {
+          <button
+            (click)="perPage.set(n)"
+            class="px-2.5 py-1 rounded-md font-semibold transition"
+            [class]="
+              perPage() === n ? 'bg-[#16c60c] text-white' : 'text-[#666666] hover:text-[#111111]'
+            "
+          >
+            {{ n }}
+          </button>
+        }
+      </div>
+      <select
+        class="px-3 py-1.5 border border-gray-200 rounded-md text-sm text-[#666666] focus:outline-none focus:border-[#16c60c]"
+      >
+        <option>Sort: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Newest</option>
+        <option>Best Rated</option>
+      </select>
+      <div class="hidden sm:flex gap-1">
+        <button
+          aria-label="Grid view"
+          class="w-8 h-8 rounded-md bg-[#16c60c] text-white flex items-center justify-center"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />
+          </svg>
+        </button>
+        <button
+          aria-label="List view"
+          class="w-8 h-8 rounded-md border border-gray-200 text-[#666666] hover:border-[#16c60c] flex items-center justify-center"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+    @for (product of products; track product.id) {
+      <app-product-card [product]="product" />
+    }
+  </div>
+
+  <!-- Pagination -->
+  <nav class="flex items-center justify-center gap-2 pt-4">
+    <button
+      (click)="prevPage()"
+      [disabled]="currentPage() === 1"
+      class="px-3 h-10 rounded-md border border-gray-200 text-sm font-semibold text-[#666666] hover:border-[#16c60c] hover:text-[#16c60c] disabled:opacity-40 disabled:cursor-not-allowed transition"
+    >
+      ← Previous
+    </button>
+    @for (p of pages(); track p) {
+      <button
+        (click)="goToPage(p)"
+        class="w-10 h-10 rounded-md text-sm font-semibold transition"
+        [class]="
+          p === currentPage()
+            ? 'bg-[#16c60c] text-white'
+            : 'border border-gray-200 text-[#666666] hover:border-[#16c60c] hover:text-[#16c60c]'
+        "
+      >
+        {{ p }}
+      </button>
+    }
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage() === pageCount()"
+      class="px-3 h-10 rounded-md border border-gray-200 text-sm font-semibold text-[#666666] hover:border-[#16c60c] hover:text-[#16c60c] disabled:opacity-40 disabled:cursor-not-allowed transition"
+    >
+      Next →
+    </button>
+  </nav>
+</div>
