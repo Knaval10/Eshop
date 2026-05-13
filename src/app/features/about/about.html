@@ -1,1 +1,260 @@
-<p>about works!</p>
+<div class="bg-[#f5f5f5]">
+  <!-- ============ 4. BREADCRUMB ============ -->
+  <section class="bg-white border-b border-gray-100">
+    <div class="max-w-350 mx-auto px-5 md:px-8 py-5">
+      <nav class="text-sm text-[#999999]">
+        <a href="/" class="hover:text-[#16c60c] transition">Home</a>
+        <span class="mx-2">/</span>
+        <a href="#" class="hover:text-[#16c60c] transition">Pages</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#111111] font-medium">About</span>
+      </nav>
+    </div>
+  </section>
+
+  <div class="max-w-350 mx-auto px-5 md:px-8 py-10 md:py-14 space-y-12 md:space-y-16">
+    <!-- ============ 5. HERO BANNER ============ -->
+    <section class="bg-[#f0ece4] rounded-2xl overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center min-h-105 p-8 md:p-12">
+        <div>
+          <span
+            class="inline-block bg-[#16c60c]/10 text-[#16c60c] text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-5"
+            >About SWOO Tech Mart</span
+          >
+          <h1
+            class="text-5xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-[1.05] tracking-tight"
+          >
+            Best experience<br />always wins
+          </h1>
+          <p class="mt-6 text-base md:text-lg text-[#666666] leading-relaxed max-w-lg">
+            We connect millions of buyers and sellers on a single trusted marketplace — built around
+            fair pricing, fast delivery, and authentic products from brands you love.
+          </p>
+        </div>
+        <div class="relative h-72 md:h-95 rounded-xl overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900&auto=format&fit=crop"
+            alt="Stacked shipping boxes and electronics packaging"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. STATISTICS STRIP ============ -->
+    <section class="bg-white rounded-2xl shadow-sm">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-gray-100"
+      >
+        <div class="p-8 md:p-10">
+          <p class="text-xs font-semibold text-[#999999] uppercase tracking-wider mb-2">
+            Our Mission
+          </p>
+          <h3 class="text-2xl md:text-3xl font-bold leading-tight">
+            <span class="text-[#16c60c]">ENRICH</span><br />
+            <span class="text-[#16c60c]">AND ENHANCE</span>
+          </h3>
+        </div>
+        @for (stat of stats; track stat.label) {
+          <div class="p-8 md:p-10">
+            <p class="text-4xl md:text-5xl font-bold text-[#111111] tracking-tight">
+              {{ stat.value }}
+            </p>
+            <p class="text-sm text-[#666666] mt-2">{{ stat.label }}</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ============ 7. COMPANY STORY ============ -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+      <div class="relative rounded-2xl overflow-hidden bg-[#16c60c] min-h-105">
+        <img
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop"
+          alt="Delivery worker in green uniform holding a package"
+          class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90"
+        />
+        <div class="absolute inset-0 bg-[#16c60c]/30"></div>
+      </div>
+      <div class="flex flex-col justify-center">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-4"
+          >Our Story</span
+        >
+        <h2 class="text-3xl md:text-4xl font-bold text-[#111111] leading-tight mb-5">
+          We connect millions of buyers and sellers around the world
+        </h2>
+        <p class="text-base text-[#666666] leading-relaxed mb-4">
+          What started in 1997 as a single neighborhood retail store has grown into a global
+          marketplace serving tens of millions of customers. Our journey has always been guided by a
+          simple belief: shopping should feel easy, fair, and delightful.
+        </p>
+        <p class="text-base text-[#666666] leading-relaxed mb-8">
+          Today, SWOO Tech Mart partners with thousands of authentic brands and independent sellers,
+          powered by a logistics network that delivers across borders without compromise on quality
+          or speed.
+        </p>
+        <div>
+          <button
+            class="bg-[#16c60c] hover:bg-[#13ad0a] text-white font-semibold px-7 py-3.5 rounded-lg transition shadow-sm"
+          >
+            Learn More About Us →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. FEATURE CARDS ============ -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      @for (feature of features; track feature.title) {
+        <article class="bg-white rounded-xl p-7 md:p-8 hover:shadow-md transition">
+          <div
+            class="w-14 h-14 rounded-full bg-[#16c60c]/10 text-[#16c60c] flex items-center justify-center mb-5"
+          >
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                [attr.d]="feature.icon"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-[#111111] mb-3">{{ feature.title }}</h3>
+          <p class="text-sm text-[#666666] leading-relaxed">{{ feature.description }}</p>
+        </article>
+      }
+    </section>
+
+    <!-- ============ 9. MISSION & VISION ============ -->
+    <section class="space-y-8">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-3 block"
+          >What drives us</span
+        >
+        <h2 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase leading-tight mb-5">
+          Our Mission and Vision
+        </h2>
+        <p class="text-base text-[#666666] leading-relaxed">
+          We exist to make commerce more inclusive — to give every buyer access to authentic
+          products at fair prices, and every seller a level playing field to grow their business.
+          Our vision is a world where great shopping experiences are available to everyone,
+          everywhere, regardless of size, location, or budget. By investing in technology,
+          infrastructure, and partnerships, we are building a marketplace that will continue to
+          enrich and enhance lives for decades to come.
+        </p>
+      </div>
+      <div class="rounded-2xl overflow-hidden h-72 md:h-110">
+        <img
+          src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1400&auto=format&fit=crop"
+          alt="Aerial view of city skyline"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </section>
+
+    <!-- ============ 10. COMPANY HISTORY TIMELINE ============ -->
+    <section>
+      <div class="max-w-4xl mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-3 block"
+          >Our Journey</span
+        >
+        <h2 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase leading-tight">
+          From a Retail Store to the Global Chain of Stores
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <ul class="space-y-7 lg:border-r lg:border-gray-200 lg:pr-12">
+          @for (item of timelineLeft; track item.year) {
+            <li class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 md:gap-6">
+              <span class="text-xl md:text-2xl font-bold text-[#111111]">{{ item.year }}</span>
+              <p class="text-sm md:text-base text-[#666666] leading-relaxed">
+                {{ item.description }}
+              </p>
+            </li>
+          }
+        </ul>
+        <ul class="space-y-7">
+          @for (item of timelineRight; track item.year) {
+            <li class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 md:gap-6">
+              <span class="text-xl md:text-2xl font-bold text-[#111111]">{{ item.year }}</span>
+              <p class="text-sm md:text-base text-[#666666] leading-relaxed">
+                {{ item.description }}
+              </p>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 11. LEADERSHIP ============ -->
+    <section>
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#16c60c] mb-2 block"
+            >Meet the team</span
+          >
+          <h2 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase">Leaderships</h2>
+        </div>
+        <a
+          href="#"
+          class="text-sm font-semibold text-[#111111] hover:text-[#16c60c] transition flex items-center gap-2"
+        >
+          View All
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        @for (member of team; track member.name) {
+          <article class="bg-white rounded-xl overflow-hidden hover:shadow-md transition">
+            <div class="aspect-4/5 overflow-hidden">
+              <img
+                [src]="member.image"
+                [alt]="member.name"
+                class="w-full h-full object-cover hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-[#111111] text-base">{{ member.name }}</h4>
+              <p class="text-xs text-[#999999] uppercase tracking-wider mt-1">{{ member.role }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ 12. FOOTER PROMOTIONAL BANNER ============ -->
+  <section class="relative bg-[#16c60c] overflow-hidden">
+    <!-- Decorative shapes -->
+    <span class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white/10"></span>
+    <span class="absolute -bottom-32 -right-16 w-96 h-96 rounded-full bg-white/10"></span>
+    <span class="absolute top-1/2 right-1/3 w-32 h-32 rounded-full bg-white/5"></span>
+
+    <div class="relative max-w-350 mx-auto px-5 md:px-8 py-14 md:py-20 text-center text-white">
+      <p class="text-xs md:text-sm font-bold uppercase tracking-[0.2em] opacity-90 mb-3">
+        SWOO Membership
+      </p>
+      <h2 class="text-3xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">
+        Get free shipping on every order, every day
+      </h2>
+      <p class="text-sm md:text-base opacity-90 max-w-xl mx-auto mb-7">
+        Join our membership program and unlock exclusive deals, early access to sales, and unlimited
+        free shipping on all your favorite products.
+      </p>
+      <button
+        class="bg-white text-[#16c60c] font-bold px-8 py-3.5 rounded-lg hover:bg-gray-100 transition shadow-sm"
+      >
+        Become a Member →
+      </button>
+    </div>
+  </section>
+</div>
