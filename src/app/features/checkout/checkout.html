@@ -1,0 +1,282 @@
+<!-- USP Bar -->
+<div class="bg-[#28a745] text-white text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-10 gap-y-1">
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h13l3 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" />
+      </svg>
+      FREE SHIPPING OVER $199
+    </span>
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M4 10a8 8 0 0114-4M20 14a8 8 0 01-14 4" />
+      </svg>
+      30 DAYS MONEY BACK
+    </span>
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" />
+      </svg>
+      100% SECURE PAYMENT
+    </span>
+  </div>
+</div>
+
+<!-- Breadcrumbs -->
+<div class="bg-[#f8f9fa] border-b border-[#dee2e6]">
+  <div class="max-w-7xl mx-auto px-4 py-4 text-sm text-[#6c757d]">
+    <a routerLink="/" class="hover:text-[#28a745] transition-colors">Home</a>
+    <span class="mx-2">/</span>
+    <span>pages</span>
+    <span class="mx-2">/</span>
+    <span class="text-[#28a745] font-medium">checkout</span>
+  </div>
+</div>
+
+<!-- Page Title -->
+<div class="max-w-7xl mx-auto px-4 pt-10 pb-6">
+  <h1 class="text-3xl md:text-4xl font-bold uppercase tracking-wide text-[#212529]">Checkout</h1>
+</div>
+
+<!-- Notification Banners -->
+<div class="max-w-7xl mx-auto px-4 space-y-3">
+  <div class="bg-[#f8f9fa] border-l-4 border-[#28a745] px-4 py-3 text-sm text-[#212529] rounded">
+    Returning customer?
+    <button type="button" (click)="showLogin.set(!showLogin())" class="text-[#28a745] hover:underline ml-1">
+      Click here to log in
+    </button>
+  </div>
+
+  @if (showLogin()) {
+    <div class="bg-white border border-[#dee2e6] rounded p-4 grid sm:grid-cols-2 gap-4">
+      <input type="text" placeholder="Username or email *" class="checkout-input" />
+      <input type="password" placeholder="Password *" class="checkout-input" />
+      <button type="button" class="bg-[#28a745] hover:bg-[#218838] transition-colors text-white px-5 py-2 rounded font-medium w-fit">
+        Login
+      </button>
+    </div>
+  }
+
+  <div class="bg-[#f8f9fa] border-l-4 border-[#28a745] px-4 py-3 text-sm text-[#212529] rounded">
+    Have a coupon?
+    <button type="button" (click)="showCoupon.set(!showCoupon())" class="text-[#28a745] hover:underline ml-1">
+      Click here to enter your code
+    </button>
+  </div>
+
+  @if (showCoupon()) {
+    <div class="bg-white border border-[#dee2e6] rounded p-4 flex flex-col sm:flex-row gap-3">
+      <input type="text" placeholder="Coupon code" class="checkout-input flex-1" />
+      <button type="button" class="bg-[#28a745] hover:bg-[#218838] transition-colors text-white px-5 py-2 rounded font-medium">
+        Apply Coupon
+      </button>
+    </div>
+  }
+</div>
+
+<!-- Main Grid -->
+<form #f="ngForm" (ngSubmit)="placeOrder()" class="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-3 gap-10">
+  <!-- Billing Details -->
+  <section class="lg:col-span-2 space-y-8">
+    <div>
+      <h2 class="text-xl md:text-2xl font-semibold text-[#212529] mb-6 pb-3 border-b border-[#dee2e6]">
+        Billing Detail
+      </h2>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <label class="block">
+          <span class="checkout-label">First Name <span class="text-red-500">*</span></span>
+          <input type="text" required [ngModel]="billing().firstName"
+                 (ngModelChange)="billing.set({ ...billing(), firstName: $event })"
+                 name="firstName" class="checkout-input" />
+        </label>
+
+        <label class="block">
+          <span class="checkout-label">Last Name <span class="text-red-500">*</span></span>
+          <input type="text" required [ngModel]="billing().lastName"
+                 (ngModelChange)="billing.set({ ...billing(), lastName: $event })"
+                 name="lastName" class="checkout-input" />
+        </label>
+
+        <label class="block sm:col-span-2">
+          <span class="checkout-label">Company Name (Optional)</span>
+          <input type="text" [ngModel]="billing().company"
+                 (ngModelChange)="billing.set({ ...billing(), company: $event })"
+                 name="company" class="checkout-input" />
+        </label>
+
+        <label class="block sm:col-span-2">
+          <span class="checkout-label">Country / Region <span class="text-red-500">*</span></span>
+          <select required [ngModel]="billing().country"
+                  (ngModelChange)="billing.set({ ...billing(), country: $event })"
+                  name="country" class="checkout-input">
+            <option value="US">United States (US)</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+            <option value="AU">Australia</option>
+          </select>
+        </label>
+
+        <label class="block sm:col-span-2">
+          <span class="checkout-label">Street Address <span class="text-red-500">*</span></span>
+          <input type="text" required [ngModel]="billing().street1"
+                 (ngModelChange)="billing.set({ ...billing(), street1: $event })"
+                 name="street1" placeholder="House number and street name..." class="checkout-input mb-3" />
+          <input type="text" [ngModel]="billing().street2"
+                 (ngModelChange)="billing.set({ ...billing(), street2: $event })"
+                 name="street2" placeholder="Apartment, suite, unit, etc (Optional)" class="checkout-input" />
+        </label>
+
+        <label class="block">
+          <span class="checkout-label">Town / City <span class="text-red-500">*</span></span>
+          <input type="text" required [ngModel]="billing().city"
+                 (ngModelChange)="billing.set({ ...billing(), city: $event })"
+                 name="city" class="checkout-input" />
+        </label>
+
+        <label class="block">
+          <span class="checkout-label">State / County <span class="text-red-500">*</span></span>
+          <select required [ngModel]="billing().state"
+                  (ngModelChange)="billing.set({ ...billing(), state: $event })"
+                  name="state" class="checkout-input">
+            <option value="WA">Washington</option>
+            <option value="CA">California</option>
+            <option value="NY">New York</option>
+            <option value="TX">Texas</option>
+          </select>
+        </label>
+
+        <label class="block">
+          <span class="checkout-label">Zip Code <span class="text-red-500">*</span></span>
+          <input type="text" required [ngModel]="billing().zip"
+                 (ngModelChange)="billing.set({ ...billing(), zip: $event })"
+                 name="zip" class="checkout-input" />
+        </label>
+
+        <label class="block">
+          <span class="checkout-label">Phone Number <span class="text-red-500">*</span></span>
+          <input type="tel" required [ngModel]="billing().phone"
+                 (ngModelChange)="billing.set({ ...billing(), phone: $event })"
+                 name="phone" class="checkout-input" />
+        </label>
+
+        <label class="block sm:col-span-2">
+          <span class="checkout-label">Email Address <span class="text-red-500">*</span></span>
+          <input type="email" required [ngModel]="billing().email"
+                 (ngModelChange)="billing.set({ ...billing(), email: $event })"
+                 name="email" class="checkout-input" />
+        </label>
+
+        <label class="flex items-center gap-3 sm:col-span-2 cursor-pointer select-none mt-2">
+          <input type="checkbox" [ngModel]="createAccount()"
+                 (ngModelChange)="createAccount.set($event)"
+                 name="createAccount" class="checkout-checkbox" />
+          <span class="text-sm text-[#212529]">Create an account?</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div>
+      <h2 class="text-xl md:text-2xl font-semibold text-[#212529] mb-6 pb-3 border-b border-[#dee2e6]">
+        Additional Information
+      </h2>
+      <label class="block">
+        <span class="checkout-label">Order Notes (Optional)</span>
+        <textarea rows="4" [ngModel]="billing().notes"
+                  (ngModelChange)="billing.set({ ...billing(), notes: $event })"
+                  name="notes"
+                  placeholder="Note about your order, e.g. special note for delivery"
+                  class="checkout-input resize-y"></textarea>
+      </label>
+    </div>
+  </section>
+
+  <!-- Your Order Sidebar -->
+  <aside class="lg:col-span-1">
+    <div class="bg-[#f8f9fa] border border-[#dee2e6] rounded-lg p-6 lg:sticky lg:top-6">
+      <h2 class="text-xl md:text-2xl font-semibold text-[#212529] mb-5">Your Order</h2>
+
+      <div class="flex justify-between text-xs font-semibold uppercase tracking-wider text-[#6c757d] border-b border-[#dee2e6] pb-3">
+        <span>Product</span>
+        <span>Sub Total</span>
+      </div>
+
+      <ul class="divide-y divide-[#dee2e6]">
+        @for (item of items(); track item.name) {
+          <li class="flex items-center justify-between gap-3 py-4">
+            <div class="flex items-center gap-3 flex-1 min-w-0">
+              <img [src]="item.image" [alt]="item.name"
+                   class="w-14 h-14 object-cover rounded border border-[#dee2e6] bg-white" />
+              <div class="min-w-0">
+                <p class="text-sm text-[#212529] truncate">{{ item.name }}</p>
+                <p class="text-xs text-[#6c757d]">{{ item.variant }} x {{ item.quantity }}</p>
+              </div>
+            </div>
+            <span class="text-sm font-medium text-[#212529] whitespace-nowrap">
+              {{ item.price * item.quantity | currency }}
+            </span>
+          </li>
+        }
+      </ul>
+
+      <div class="flex justify-between py-3 text-sm border-b border-[#dee2e6]">
+        <div>
+          <p class="text-[#212529]">Worldwide Standard Shipping</p>
+          <p class="text-xs text-[#6c757d]">Free</p>
+        </div>
+        <span class="font-medium text-[#212529]">{{ shipping() | currency }}</span>
+      </div>
+
+      <div class="flex justify-between items-center py-4">
+        <span class="font-semibold text-[#212529]">Order Total</span>
+        <span class="text-lg font-bold text-[#28a745]">{{ total() | currency }}</span>
+      </div>
+
+      <!-- Payment Options -->
+      <div class="mt-2 space-y-3">
+        <label class="block border border-[#dee2e6] rounded p-4 cursor-pointer transition-all hover:border-[#28a745]"
+               [ngClass]="{ 'border-[#28a745] bg-white shadow-sm': payment() === 'bank' }">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="payment" [checked]="payment() === 'bank'" (change)="setPayment('bank')"
+                   class="checkout-radio" />
+            <span class="text-sm font-medium text-[#212529]">Direct Bank Transfer</span>
+          </div>
+          @if (payment() === 'bank') {
+            <p class="text-xs text-[#6c757d] mt-3 leading-relaxed checkout-fade">
+              Make your payment directly into our bank account. Please use your Order ID as the payment reference.
+              Your order will not be shipped until the funds have cleared in our account.
+            </p>
+          }
+        </label>
+
+        <label class="block border border-[#dee2e6] rounded p-4 cursor-pointer transition-all hover:border-[#28a745]"
+               [ngClass]="{ 'border-[#28a745] bg-white shadow-sm': payment() === 'cod' }">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="payment" [checked]="payment() === 'cod'" (change)="setPayment('cod')"
+                   class="checkout-radio" />
+            <span class="text-sm font-medium text-[#212529]">Cash on Delivery</span>
+          </div>
+        </label>
+
+        <label class="block border border-[#dee2e6] rounded p-4 cursor-pointer transition-all hover:border-[#28a745]"
+               [ngClass]="{ 'border-[#28a745] bg-white shadow-sm': payment() === 'paypal' }">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="payment" [checked]="payment() === 'paypal'" (change)="setPayment('paypal')"
+                     class="checkout-radio" />
+              <span class="text-sm font-medium text-[#212529]">Paypal</span>
+              <span class="text-[#003087] font-bold italic text-sm">PayPal</span>
+            </div>
+            <a href="#" class="text-xs text-[#28a745] hover:underline">What's Paypal?</a>
+          </div>
+        </label>
+      </div>
+
+      <button type="submit"
+              class="mt-6 w-full bg-[#28a745] hover:bg-[#218838] active:scale-[0.99] text-white font-semibold uppercase tracking-wider py-3 rounded transition-all">
+        Place Order
+      </button>
+    </div>
+  </aside>
+</form>

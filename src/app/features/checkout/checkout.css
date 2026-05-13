@@ -1,0 +1,168 @@
+:host {
+  display: block;
+  font-family: 'Inter', 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #212529;
+  letter-spacing: 0.01em;
+  background: #ffffff;
+}
+
+.checkout-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #212529;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.checkout-input {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 10px 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.checkout-input::placeholder {
+  color: #adb5bd;
+}
+
+.checkout-input:hover {
+  border-color: #adb5bd;
+}
+
+.checkout-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.18);
+}
+
+select.checkout-input {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%236c757d' d='M6 8L0 0h12z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 10px;
+  padding-right: 36px;
+  appearance: none;
+}
+
+textarea.checkout-input {
+  min-height: 100px;
+}
+
+/* Custom checkbox */
+.checkout-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkout-checkbox:hover {
+  border-color: #28a745;
+}
+
+.checkout-checkbox:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.checkout-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  animation: checkmark-pop 0.25s ease-out forwards;
+}
+
+/* Custom radio */
+.checkout-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #dee2e6;
+  border-radius: 50%;
+  background-color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkout-radio:hover {
+  border-color: #28a745;
+}
+
+.checkout-radio:checked {
+  border-color: #28a745;
+}
+
+.checkout-radio:checked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #28a745;
+  transform: translate(-50%, -50%) scale(0);
+  animation: radio-pop 0.25s ease-out forwards;
+}
+
+@keyframes checkmark-pop {
+  0% {
+    transform: rotate(45deg) scale(0);
+  }
+  60% {
+    transform: rotate(45deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+@keyframes radio-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.checkout-fade {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
