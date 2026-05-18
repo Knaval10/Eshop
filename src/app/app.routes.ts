@@ -23,6 +23,14 @@ export const routes: Routes = [
     loadComponent: () => import('./features/checkout/checkout').then((m) => m.Checkout),
   },
   {
+    path: 'users',
+    loadComponent: () => import('./features/user/user').then((m) => m.User),
+  },
+  {
+    path: 'comments',
+    loadComponent: () => import('./features/comments/comments').then((m) => m.Comments),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
