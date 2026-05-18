@@ -135,6 +135,22 @@
       <a routerLink="/about" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition"
         >About</a
       >
+      <a routerLink="/users" class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition"
+        >Users</a
+      >
+      <a
+        routerLink="/comments"
+        class="text-[#1A1A1A] hover:text-[#00B127] font-medium transition inline-flex items-center gap-1.5"
+      >
+        Comments
+        @if (commentsStore.hasData()) {
+          <span
+            class="bg-[#00B127] text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 min-w-5 text-center"
+          >
+            {{ commentsStore.count() }}
+          </span>
+        }
+      </a>
       <a href="#" class="ml-auto text-[#00B127] font-semibold">🔥 Flash Sale — Up to 50% off</a>
     </nav>
   </div>

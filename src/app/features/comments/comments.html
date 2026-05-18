@@ -1,0 +1,105 @@
+<div class="bg-[#f5f5f5] min-h-screen">
+  <section class="bg-white border-b border-gray-100">
+    <div class="max-w-350 mx-auto px-5 md:px-8 py-5">
+      <nav class="text-sm text-[#999999]">
+        <a href="/" class="hover:text-[#00B127] transition">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#111111] font-medium">Comments</span>
+      </nav>
+    </div>
+  </section>
+
+  <div class="max-w-350 mx-auto px-5 md:px-8 py-8 md:py-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold text-[#111111] uppercase">Customer Comments</h1>
+        <p class="text-sm text-[#666666] mt-2">
+          Live feed of feedback from across the marketplace
+          @if (store.hasData()) {
+            — <span class="font-semibold text-[#111111]">{{ store.count() }}</span> total
+          }
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <input
+          type="search"
+          [ngModel]="search()"
+          (ngModelChange)="onSearch($event)"
+          placeholder="Search name, email or text…"
+          class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm w-full md:w-72 focus:outline-none focus:border-[#00B127]"
+        />
+        <button
+          (click)="store.load(true)"
+          [disabled]="store.loading()"
+          class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-5 py-2.5 rounded-lg transition disabled:opacity-50"
+        >
+          {{ store.loading() ? '…' : 'Refresh' }}
+        </button>
+      </div>
+    </div>
+
+    @if (store.loading() && !store.hasData()) {
+      <div class="bg-white rounded-2xl p-10 text-center text-[#666666]">Loading comments…</div>
+    } @else if (store.error()) {
+      <div class="bg-white rounded-2xl p-10 text-center">
+        <p class="text-[#ff3b30] font-semibold mb-3">{{ store.error() }}</p>
+        <button
+          (click)="store.load(true)"
+          class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-5 py-2.5 rounded-lg transition"
+        >
+          Retry
+        </button>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        @for (c of visible(); track c.id) {
+          <article class="bg-white rounded-xl p-5 hover:shadow-md transition flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-10 h-10 rounded-full bg-[#00B127]/10 text-[#00B127] flex items-center justify-center font-bold"
+              >
+                {{ c.name.charAt(0).toUpperCase() }}
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="font-semibold text-[#111111] text-sm truncate">{{ c.name }}</h3>
+                <p class="text-xs text-[#999999] truncate">{{ c.email }}</p>
+              </div>
+              <span class="text-[10px] font-bold text-[#999999]">#{{ c.id }}</span>
+            </div>
+            <p class="text-sm text-[#666666] leading-relaxed line-clamp-4">{{ c.body }}</p>
+            <p class="text-[11px] text-[#999999] mt-3 pt-3 border-t border-gray-100">
+              On post <span class="font-semibold text-[#111111]">#{{ c.postId }}</span>
+            </p>
+          </article>
+        } @empty {
+          <div class="col-span-full bg-white rounded-2xl p-10 text-center text-[#666666]">
+            No comments match your search.
+          </div>
+        }
+      </div>
+
+      @if (pageCount() > 1) {
+        <nav class="flex items-center justify-center gap-2 pt-8">
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage() === 1"
+            class="px-4 h-10 rounded-md border border-gray-200 text-sm font-semibold text-[#666666] hover:border-[#00B127] hover:text-[#00B127] disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            ← Prev
+          </button>
+          <span class="px-4 text-sm text-[#666666]">
+            Page <span class="font-semibold text-[#111111]">{{ currentPage() }}</span> of
+            {{ pageCount() }}
+          </span>
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage() === pageCount()"
+            class="px-4 h-10 rounded-md border border-gray-200 text-sm font-semibold text-[#666666] hover:border-[#00B127] hover:text-[#00B127] disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            Next →
+          </button>
+        </nav>
+      }
+    }
+  </div>
+</div>
