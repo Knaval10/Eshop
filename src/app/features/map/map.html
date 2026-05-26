@@ -1,0 +1,11 @@
+<div class="map-wrapper">
+  <mgl-map
+    [mapStyle]="'https://tiles.openfreemap.org/styles/liberty'"
+    [attributionControl]="false"
+    [maplibreLogo]="true"
+    [zoom]="[5]"
+    [center]="[85.3240, 27.7172]"
+    (mapLoad)="onMapLoad($event)"
+  >
+  </mgl-map>
+</div>

@@ -2,6 +2,10 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
 
+## Project documentation
+
+See [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md) for the tech stack, architecture overview, routing structure, SSR setup, pros and cons, and recommended improvements.
+
 ## Development server
 
 To start a local development server, run:
