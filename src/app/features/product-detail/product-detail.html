@@ -10,7 +10,7 @@
         (variantSelected)="activeVariantIndex.set($event)"
         (memorySelected)="activeMemoryIndex.set($event)"
       />
-      <app-detail-purchase-card [activeVariant]="activeVariant()" />
+      <app-detail-purchase-card [productName]="productName" [activeVariant]="activeVariant()" />
     </section>
     <app-detail-frequently-bought />
     <app-detail-product-tabs />
