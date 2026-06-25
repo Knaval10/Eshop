@@ -1,0 +1,61 @@
+<section class="max-w-5xl mx-auto px-4 py-8 space-y-6 min-h-[calc(100vh-605.5px)]">
+	<header class="flex items-center justify-between gap-4">
+		<div>
+			<h1 class="text-2xl font-bold text-[#1A1A1A]">Your Cart</h1>
+			<p class="text-sm text-gray-500">{{ cartStore.count() }} item(s)</p>
+		</div>
+		@if (cartStore.hasItems()) {
+		<button (click)="clearCart()" class="text-sm font-semibold text-red-600 hover:text-red-700 transition">
+			Clear cart
+		</button>
+		}
+	</header>
+
+	@if (cartStore.hasItems()) {
+	<div class="grid grid-cols-1 gap-4">
+		@for (item of cartStore.items(); track item.id) {
+		<article class="bg-white rounded-xl border border-gray-200 p-4 flex flex-col sm:flex-row gap-4">
+			<img [src]="item.image" [alt]="item.name" class="w-full sm:w-24 h-24 object-cover rounded-lg bg-gray-50" />
+
+			<div class="flex-1 space-y-2">
+				<h2 class="font-semibold text-[#1A1A1A]">{{ item.name }}</h2>
+				<p class="text-sm text-gray-500">${{ item.price }}</p>
+
+				<div class="flex items-center justify-between gap-4">
+					<div class="inline-flex items-center border border-gray-200 rounded-lg">
+						<button (click)="decrementItem(item.id)"
+							class="w-9 h-9 text-lg text-gray-600 hover:text-[#00B127]" aria-label="Decrease quantity">
+							-
+						</button>
+						<span class="w-10 text-center font-semibold">{{ item.quantity }}</span>
+						<button (click)="incrementItem(item.id)"
+							class="w-9 h-9 text-lg text-gray-600 hover:text-[#00B127]" aria-label="Increase quantity">
+							+
+						</button>
+					</div>
+
+					<button (click)="removeItem(item.id)" class="text-sm text-red-600 hover:text-red-700 font-medium">
+						Remove
+					</button>
+				</div>
+			</div>
+
+			<div class="sm:text-right">
+				<p class="text-xs uppercase tracking-wide text-gray-500">Line total</p>
+				<p class="text-lg font-bold text-[#00B127]">${{ item.price * item.quantity }}</p>
+			</div>
+		</article>
+		}
+	</div>
+
+	<footer class="bg-[#1A1A1A] text-white rounded-xl p-4 flex items-center justify-between">
+		<span class="text-sm uppercase tracking-wide text-gray-300">Subtotal</span>
+		<span class="text-xl font-bold">${{ cartStore.subtotal() }}</span>
+	</footer>
+	} @else {
+	<div class="bg-white rounded-xl border border-dashed border-gray-300 p-8 text-center">
+		<p class="text-lg font-semibold text-[#1A1A1A]">Your cart is empty</p>
+		<p class="text-sm text-gray-500 mt-1">Add products to see them listed here.</p>
+	</div>
+	}
+</section>
