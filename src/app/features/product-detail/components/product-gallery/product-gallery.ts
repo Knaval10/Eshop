@@ -9,7 +9,9 @@ import { GALLERY } from '../../data';
 })
 export class ProductGallery {
   readonly productName = input.required<string>();
-  protected readonly gallery = GALLERY;
+  readonly product = input<any>();
+
+  protected readonly gallery = computed(() => this.product()?.gallery ?? GALLERY);
   protected readonly activeImageIndex = signal(0);
-  protected readonly activeImage = computed(() => this.gallery[this.activeImageIndex()]);
+  protected readonly activeImage = computed(() => this.gallery()[this.activeImageIndex()]);
 }

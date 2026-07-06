@@ -17,7 +17,7 @@
   </p>
 
   <ul class="mt-5 space-y-2">
-    @for (f of features; track f) {
+    @for (f of features(); track f) {
       <li class="text-sm text-[#666666] flex items-start gap-2 leading-relaxed">
         <svg class="w-4 h-4 text-[#16c60c] shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
           <path
@@ -46,7 +46,7 @@
       Color: <span class="text-[#666666] font-medium normal-case">{{ activeVariant().color }}</span>
     </p>
     <div class="grid grid-cols-3 gap-3">
-      @for (v of variants; track v.color; let i = $index) {
+      @for (v of variants(); track v.color; let i = $index) {
         <button
           (click)="variantSelected.emit(i)"
           class="rounded-xl border-2 p-2 text-left transition"
@@ -75,11 +75,11 @@
     <p class="text-xs font-bold uppercase tracking-wider text-[#111111] mb-3">
       Memory Size:
       <span class="text-[#666666] font-medium normal-case">{{
-        memoryOptions[activeMemoryIndex()]
+        memoryOptions()[activeMemoryIndex()]
       }}</span>
     </p>
     <div class="flex flex-wrap gap-2">
-      @for (m of memoryOptions; track m; let i = $index) {
+      @for (m of memoryOptions(); track m; let i = $index) {
         <button
           (click)="memorySelected.emit(i)"
           class="px-4 py-2 rounded-md border-2 text-sm font-semibold transition"
@@ -113,15 +113,15 @@
   <div class="mt-6 pt-5 border-t border-gray-100 space-y-2 text-sm">
     <p class="text-[#666666]">
       <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">SKU:</span
-      >{{ sku }}
+      >{{ sku() }}
     </p>
     <p class="text-[#666666]">
       <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">Category:</span
-      >{{ category }}
+      >{{ category() }}
     </p>
     <p class="text-[#666666]">
       <span class="font-bold uppercase tracking-wider text-xs text-[#111111] mr-2">Brand:</span
-      >{{ brand }}
+      >{{ brand() }}
     </p>
   </div>
 

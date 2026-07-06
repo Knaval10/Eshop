@@ -17,11 +17,7 @@
   @if (activeTab() === 0) {
     <div class="space-y-6">
       <p class="text-base text-[#666666] leading-relaxed">
-        The Somseng Galatero X6 Ultra redefines the flagship smartphone experience with its
-        industry-leading 200MP camera, blazing-fast Snapdragon 8 Gen 2 chipset, and a vibrant 6.7"
-        Dynamic AMOLED 2X display that adapts to your environment. Whether you're capturing
-        low-light masterpieces, gaming at high frame rates, or multitasking across apps, the X6
-        Ultra delivers uncompromising performance in a sleek, premium design.
+        {{ productDescription() || "The Somseng Galatero X6 Ultra redefines the flagship smartphone experience with its industry-leading 200MP camera, blazing-fast Snapdragon 8 Gen 2 chipset, and a vibrant 6.7\" Dynamic AMOLED 2X display that adapts to your environment. Whether you're capturing low-light masterpieces, gaming at high frame rates, or multitasking across apps, the X6 Ultra delivers uncompromising performance in a sleek, premium design." }}
       </p>
 
       <figure class="rounded-2xl overflow-hidden">
@@ -85,12 +81,12 @@
 
   @if (activeTab() === 1) {
     <div class="space-y-5">
-      @for (r of reviews; track r.author) {
+      @for (r of reviewsList(); track r._id) {
         <article class="border-b border-gray-100 last:border-0 pb-5 last:pb-0">
           <div class="flex items-start justify-between mb-2">
             <div>
-              <p class="font-semibold text-[#111111]">{{ r.author }}</p>
-              <p class="text-xs text-[#999999]">{{ r.date }}</p>
+              <p class="font-semibold text-[#111111]">{{ r.userName }}</p>
+              <p class="text-xs text-[#999999]">{{ r.createdAt | date:'mediumDate' }}</p>
             </div>
             <span class="text-yellow-400 text-sm">
               @for (i of [1, 2, 3, 4, 5]; track i) {
@@ -102,10 +98,58 @@
               }
             </span>
           </div>
-          <h4 class="font-semibold text-[#111111] mb-1">{{ r.title }}</h4>
-          <p class="text-sm text-[#666666] leading-relaxed">{{ r.body }}</p>
+          <p class="text-sm text-[#666666] leading-relaxed">{{ r.comment }}</p>
         </article>
+      } @empty {
+        <p class="text-sm text-gray-500 italic">No reviews yet. Be the first to review this product!</p>
       }
+
+      <!-- Add Review Form -->
+      <div class="mt-8 pt-6 border-t border-gray-100">
+        <h4 class="font-bold text-lg text-[#111111] mb-4">Add a Review</h4>
+        @if (authStore.isAuthenticated()) {
+          <form (submit)="submitReview($event)" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-[#111111] mb-2">Rating</label>
+              <div class="flex gap-2">
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <button
+                    type="button"
+                    (click)="selectedRating.set(star)"
+                    class="text-2xl transition"
+                    [class.text-yellow-400]="star <= selectedRating()"
+                    [class.text-gray-300]="star > selectedRating()"
+                  >
+                    ★
+                  </button>
+                }
+              </div>
+            </div>
+            <div>
+              <label for="review-comment" class="block text-sm font-semibold text-[#111111] mb-2">Comment</label>
+              <textarea
+                id="review-comment"
+                [value]="newComment()"
+                (input)="onCommentInput($event)"
+                rows="4"
+                placeholder="Share your thoughts about this product..."
+                class="w-full border border-gray-200 rounded-lg p-3 text-sm focus:outline-none focus:border-[#16c60c]"
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-[#16c60c] hover:bg-[#13ad0a] text-white font-semibold px-6 py-2.5 rounded-lg transition text-sm"
+            >
+              Submit Review
+            </button>
+          </form>
+        } @else {
+          <p class="text-sm text-gray-500">
+            Please <a routerLink="/login" class="text-[#16c60c] hover:underline font-semibold">login</a> to write a review.
+          </p>
+        }
+      </div>
     </div>
   }
 
