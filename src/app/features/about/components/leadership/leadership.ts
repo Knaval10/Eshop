@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TEAM } from '../../data';
 
 @Component({
@@ -8,5 +8,5 @@ import { TEAM } from '../../data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Leadership {
-  protected readonly team = TEAM;
+  readonly team = input<any[]>(TEAM);
 }

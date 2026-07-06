@@ -23,7 +23,7 @@
   </div>
 
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-    @for (member of team; track member.name) {
+    @for (member of team(); track member.name) {
       <article class="bg-white rounded-xl overflow-hidden hover:shadow-md transition">
         <div class="aspect-4/5 overflow-hidden">
           <img

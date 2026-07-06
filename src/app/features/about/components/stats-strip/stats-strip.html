@@ -9,7 +9,7 @@
         <span class="text-[#16c60c]">AND ENHANCE</span>
       </h3>
     </div>
-    @for (stat of stats; track stat.label) {
+    @for (stat of stats(); track stat.label) {
       <div class="p-8 md:p-10">
         <p class="text-4xl md:text-5xl font-bold text-[#111111] tracking-tight">
           {{ stat.value }}
