@@ -2,12 +2,20 @@
   <app-about-breadcrumb />
   <div class="max-w-350 mx-auto px-5 md:px-8 py-10 md:py-14 space-y-12 md:space-y-16">
     <app-about-hero-banner />
-    <app-about-stats-strip />
+    @if (stats().length > 0) {
+      <app-about-stats-strip [stats]="stats()" />
+    } @else {
+      <app-about-stats-strip />
+    }
     <app-about-company-story />
     <app-about-feature-cards />
     <app-about-mission-vision />
     <app-about-timeline />
-    <app-about-leadership />
+    @if (team().length > 0) {
+      <app-about-leadership [team]="team()" />
+    } @else {
+      <app-about-leadership />
+    }
   </div>
   <app-about-promo-footer />
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { STATS } from '../../data';
 
 @Component({
@@ -8,5 +8,5 @@ import { STATS } from '../../data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsStrip {
-  protected readonly stats = STATS;
+  readonly stats = input<any[]>(STATS);
 }
