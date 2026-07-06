@@ -1,0 +1,166 @@
+<!-- USP Bar -->
+<div class="bg-[#28a745] text-white text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-10 gap-y-1">
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h13l3 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" />
+      </svg>
+      FREE SHIPPING OVER $199
+    </span>
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M4 10a8 8 0 0114-4M20 14a8 8 0 01-14 4" />
+      </svg>
+      30 DAYS MONEY BACK
+    </span>
+    <span class="flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" />
+      </svg>
+      100% SECURE PAYMENT
+    </span>
+  </div>
+</div>
+
+<!-- Breadcrumbs -->
+<div class="bg-[#f8f9fa] border-b border-[#dee2e6]">
+  <div class="max-w-7xl mx-auto px-4 py-4 text-sm text-[#6c757d]">
+    <a routerLink="/" class="hover:text-[#28a745] transition-colors">Home</a>
+    <span class="mx-2">/</span>
+    <span class="text-[#28a745] font-medium">wishlist</span>
+  </div>
+</div>
+
+<!-- Main Section -->
+<main class="max-w-7xl mx-auto px-4 py-10 md:py-16">
+  <div class="flex items-center justify-between mb-8 pb-4 border-b border-[#dee2e6]">
+    <h1 class="text-3xl font-bold uppercase tracking-wide text-[#212529]">My Wishlist</h1>
+    @if (wishlistStore.hasItems()) {
+      <button
+        (click)="clear()"
+        class="text-sm font-semibold text-red-600 hover:text-red-800 transition"
+      >
+        Clear Wishlist
+      </button>
+    }
+  </div>
+
+  @if (wishlistStore.hasItems()) {
+    <div class="bg-white rounded-lg shadow-sm border border-[#dee2e6] overflow-hidden">
+      <!-- Desktop Table -->
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#f8f9fa] border-b border-[#dee2e6] text-xs font-semibold uppercase tracking-wider text-[#6c757d]">
+              <th class="py-4 px-6">Product</th>
+              <th class="py-4 px-6">Price</th>
+              <th class="py-4 px-6">Stock Status</th>
+              <th class="py-4 px-6 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dee2e6]">
+            @for (item of wishlistStore.items(); track item.id) {
+              <tr class="hover:bg-[#f8f9fa] transition-colors">
+                <td class="py-4 px-6 flex items-center gap-4">
+                  <img
+                    [src]="item.imageUrl"
+                    [alt]="item.name"
+                    class="w-16 h-16 object-cover rounded border border-[#dee2e6] bg-[#f8f9fa]"
+                  />
+                  <span class="font-medium text-sm text-[#212529]">{{ item.name }}</span>
+                </td>
+                <td class="py-4 px-6 text-sm font-semibold text-[#212529]">
+                  {{ item.price | currency }}
+                </td>
+                <td class="py-4 px-6 text-sm">
+                  @if (item.stock > 0) {
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#d4edda] text-[#155724]">
+                      In Stock
+                    </span>
+                  } @else {
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#f8d7da] text-[#721c24]">
+                      Out of Stock
+                    </span>
+                  }
+                </td>
+                <td class="py-4 px-6 text-right space-x-3">
+                  <button
+                    (click)="addToCart(item)"
+                    [disabled]="item.stock <= 0"
+                    class="bg-[#28a745] hover:bg-[#218838] disabled:bg-gray-300 disabled:cursor-not-allowed transition text-white px-4 py-2 rounded text-xs font-semibold"
+                  >
+                    Add To Cart
+                  </button>
+                  <button
+                    (click)="remove(item.id)"
+                    class="text-[#6c757d] hover:text-red-600 transition p-2"
+                    aria-label="Remove item"
+                  >
+                    🗑
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile List -->
+      <div class="block md:hidden divide-y divide-[#dee2e6]">
+        @for (item of wishlistStore.items(); track item.id) {
+          <div class="p-4 flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <img
+                [src]="item.imageUrl"
+                [alt]="item.name"
+                class="w-20 h-20 object-cover rounded border border-[#dee2e6] bg-[#f8f9fa]"
+              />
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-sm text-[#212529] truncate">{{ item.name }}</h3>
+                <p class="text-sm font-semibold text-[#28a745] mt-1">{{ item.price | currency }}</p>
+                <div class="mt-2">
+                  @if (item.stock > 0) {
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#d4edda] text-[#155724]">
+                      In Stock
+                    </span>
+                  } @else {
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#f8d7da] text-[#721c24]">
+                      Out of Stock
+                    </span>
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-end gap-3 pt-2">
+              <button
+                (click)="remove(item.id)"
+                class="border border-[#dee2e6] text-[#6c757d] hover:text-red-600 px-4 py-2 rounded text-xs font-semibold transition"
+              >
+                Remove
+              </button>
+              <button
+                (click)="addToCart(item)"
+                [disabled]="item.stock <= 0"
+                class="bg-[#28a745] hover:bg-[#218838] disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-4 py-2 rounded text-xs font-semibold transition flex-1 text-center"
+              >
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="text-center py-16 bg-white rounded-lg border border-[#dee2e6] p-8 shadow-sm">
+      <span class="text-5xl block mb-4">❤️</span>
+      <h2 class="text-xl font-bold text-[#212529] mb-2">Your wishlist is empty</h2>
+      <p class="text-sm text-[#6c757d] mb-6">Explore our products and tap the heart icon to save your favorites!</p>
+      <a
+        routerLink="/products"
+        class="inline-block bg-[#28a745] hover:bg-[#218838] transition text-white px-6 py-3 rounded-lg font-semibold text-sm"
+      >
+        Browse Products
+      </a>
+    </div>
+  }
+</main>
