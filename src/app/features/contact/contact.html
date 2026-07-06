@@ -1,0 +1,81 @@
+<section class="min-h-[70vh] bg-[#f5f5f5] py-10 px-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+    <div class="text-center max-w-lg mx-auto">
+      <h1 class="text-3xl font-extrabold text-[#111111] tracking-tight">Contact Us</h1>
+      <p class="text-sm text-gray-500 mt-2">
+        Have questions about an order, product, or anything else? We'd love to hear from you.
+      </p>
+    </div>
+
+    <form (submit)="submit($event)" class="mt-8 space-y-6">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-semibold text-[#111111]">Your Name <span class="text-red-500">*</span></span>
+          <input
+            type="text"
+            required
+            [ngModel]="form().name"
+            (ngModelChange)="form.set({ ...form(), name: $event })"
+            name="name"
+            placeholder="Jane Smith"
+            class="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-[#16c60c]"
+          />
+        </label>
+
+        <label class="block">
+          <span class="text-sm font-semibold text-[#111111]">Your Email <span class="text-red-500">*</span></span>
+          <input
+            type="email"
+            required
+            [ngModel]="form().email"
+            (ngModelChange)="form.set({ ...form(), email: $event })"
+            name="email"
+            placeholder="jane@example.com"
+            class="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-[#16c60c]"
+          />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-[#111111]">Subject <span class="text-red-500">*</span></span>
+        <input
+          type="text"
+          required
+          [ngModel]="form().subject"
+          (ngModelChange)="form.set({ ...form(), subject: $event })"
+          name="subject"
+          placeholder="How can we help you?"
+          class="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-[#16c60c]"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-[#111111]">Message <span class="text-red-500">*</span></span>
+        <textarea
+          required
+          [ngModel]="form().message"
+          (ngModelChange)="form.set({ ...form(), message: $event })"
+          name="message"
+          rows="5"
+          placeholder="Tell us details about your inquiry..."
+          class="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-[#16c60c] resize-y"
+        ></textarea>
+      </label>
+
+      @if (error()) {
+        <p class="text-sm text-red-600 font-medium">{{ error() }}</p>
+      }
+      @if (success()) {
+        <p class="text-sm text-[#16c60c] font-medium">{{ success() }}</p>
+      }
+
+      <button
+        type="submit"
+        [disabled]="loading()"
+        class="w-full bg-[#16c60c] hover:bg-[#13ad0a] text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+      >
+        {{ loading() ? 'Sending...' : 'Send Message' }}
+      </button>
+    </form>
+  </div>
+</section>
