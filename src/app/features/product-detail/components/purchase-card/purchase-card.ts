@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { Router } from '@angular/router';
 import { AuthStore } from '../../../../core/auth/auth-store';
 import { CartStore } from '../../../cart/cart';
+import { WishlistStore } from '../../../../core/store/wishlist-store';
 import { ProductVariant } from '../../models';
 
 @Component({
@@ -13,9 +14,12 @@ import { ProductVariant } from '../../models';
 export class PurchaseCard {
   readonly productName = input.required<string>();
   readonly activeVariant = input.required<ProductVariant>();
+  readonly productId = input<string>();
+
   private readonly authStore = inject(AuthStore);
   private readonly cartStore = inject(CartStore);
   private readonly router = inject(Router);
+  protected readonly wishlistStore = inject(WishlistStore);
 
   protected readonly quantity = signal(1);
   increment() {
@@ -32,9 +36,10 @@ export class PurchaseCard {
     }
 
     const variant = this.activeVariant();
+    const itemId = this.productId() || `detail-${this.productName()}-${variant.color}`;
     this.cartStore.addItem(
       {
-        id: `detail-${this.productName()}-${variant.color}`,
+        id: itemId,
         name: `${this.productName()} (${variant.color})`,
         image: variant.image,
         price: variant.price,

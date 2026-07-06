@@ -21,9 +21,13 @@
     }
     <button
       aria-label="Add to wishlist"
+      type="button"
+      (click)="wishlistStore.toggleWishlist(p.id)"
+      [class.text-red-500]="wishlistStore.isInWishlist(p.id)"
+      [class.border-red-200]="wishlistStore.isInWishlist(p.id)"
       class="w-8 h-8 rounded-full border border-gray-200 text-[#999999] hover:border-[#ff3b30] hover:text-[#ff3b30] flex items-center justify-center transition"
     >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-4 h-4" [attr.fill]="wishlistStore.isInWishlist(p.id) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
