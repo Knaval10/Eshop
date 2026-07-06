@@ -1,10 +1,6 @@
-import { Injectable, computed, signal } from '@angular/core';
-
-interface AuthUserRecord {
-  name: string;
-  email: string;
-  password: string;
-}
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 
 export interface AuthSessionUser {
   name: string;
@@ -27,11 +23,15 @@ interface AuthResult {
   message: string;
 }
 
-const USERS_KEY = 'eshop_auth_users_v1';
 const SESSION_KEY = 'eshop_auth_session_v1';
+const TOKEN_KEY = 'eshop_jwt_token';
+const LEGACY_USERS_KEY = 'eshop_auth_users_v1';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:3001/api/v1';
+
   readonly currentUser = signal<AuthSessionUser | null>(null);
   readonly isAuthenticated = computed(() => this.currentUser() !== null);
 
@@ -39,52 +39,48 @@ export class AuthStore {
     this.restoreSession();
   }
 
-  register(payload: RegisterPayload): AuthResult {
+  register(payload: RegisterPayload): Observable<AuthResult> {
     const name = payload.name.trim();
     const email = payload.email.trim().toLowerCase();
     const password = payload.password;
 
     if (!name || !email || !password) {
-      return { ok: false, message: 'All fields are required.' };
+      return of({ ok: false, message: 'All fields are required.' });
     }
 
-    const users = this.readUsers();
-    if (users.some((user) => user.email === email)) {
-      return { ok: false, message: 'Email is already registered.' };
-    }
-
-    users.push({ name, email, password });
-    this.writeUsers(users);
-
-    const sessionUser: AuthSessionUser = { name, email };
-    this.currentUser.set(sessionUser);
-    this.persistSession(sessionUser);
-
-    return { ok: true, message: 'Registration successful.' };
+    return this.http.post<any>(`${this.apiUrl}/auth/register`, { name, email, password }).pipe(
+      switchMap(() => this.login({ email, password })),
+      catchError((err) => {
+        return of({ ok: false, message: err?.error?.message || 'Registration failed.' });
+      })
+    );
   }
 
-  login(payload: LoginPayload): AuthResult {
+  login(payload: LoginPayload): Observable<AuthResult> {
     const email = payload.email.trim().toLowerCase();
     const password = payload.password;
 
     if (!email || !password) {
-      return { ok: false, message: 'Email and password are required.' };
+      return of({ ok: false, message: 'Email and password are required.' });
     }
 
-    const users = this.readUsers();
-    const match = users.find((user) => user.email === email && user.password === password);
-    if (!match) {
-      return { ok: false, message: 'Invalid email or password.' };
-    }
-
-    const sessionUser: AuthSessionUser = {
-      name: match.name,
-      email: match.email,
-    };
-    this.currentUser.set(sessionUser);
-    this.persistSession(sessionUser);
-
-    return { ok: true, message: 'Login successful.' };
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password }).pipe(
+      map((res) => {
+        if (res && res.success && res.token) {
+          const sessionUser: AuthSessionUser = {
+            name: res.data.name,
+            email: res.data.email,
+          };
+          this.currentUser.set(sessionUser);
+          this.persistSession(sessionUser, res.token);
+          return { ok: true, message: 'Login successful.' };
+        }
+        return { ok: false, message: res?.message || 'Invalid response from server.' };
+      }),
+      catchError((err) => {
+        return of({ ok: false, message: err?.error?.message || 'Invalid email or password.' });
+      })
+    );
   }
 
   logout(): void {
@@ -93,6 +89,8 @@ export class AuthStore {
       return;
     }
     localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(LEGACY_USERS_KEY);
   }
 
   private restoreSession(): void {
@@ -100,8 +98,15 @@ export class AuthStore {
       return;
     }
 
+    // Proactively clean up legacy plain-text credentials stored in local storage
+    if (localStorage.getItem(LEGACY_USERS_KEY)) {
+      localStorage.removeItem(LEGACY_USERS_KEY);
+    }
+
+    const token = localStorage.getItem(TOKEN_KEY);
     const serialized = localStorage.getItem(SESSION_KEY);
-    if (!serialized) {
+    if (!token || !serialized) {
+      this.logout();
       return;
     }
 
@@ -109,45 +114,20 @@ export class AuthStore {
       const parsed = JSON.parse(serialized) as AuthSessionUser;
       if (parsed?.email && parsed?.name) {
         this.currentUser.set({ name: parsed.name, email: parsed.email });
+      } else {
+        this.logout();
       }
     } catch {
-      localStorage.removeItem(SESSION_KEY);
+      this.logout();
     }
   }
 
-  private readUsers(): AuthUserRecord[] {
-    if (!this.canUseStorage()) {
-      return [];
-    }
-
-    const serialized = localStorage.getItem(USERS_KEY);
-    if (!serialized) {
-      return [];
-    }
-
-    try {
-      const parsed = JSON.parse(serialized) as AuthUserRecord[];
-      if (!Array.isArray(parsed)) {
-        return [];
-      }
-      return parsed.filter((user) => Boolean(user?.email && user?.password && user?.name));
-    } catch {
-      return [];
-    }
-  }
-
-  private writeUsers(users: AuthUserRecord[]): void {
-    if (!this.canUseStorage()) {
-      return;
-    }
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  }
-
-  private persistSession(user: AuthSessionUser): void {
+  private persistSession(user: AuthSessionUser, token: string): void {
     if (!this.canUseStorage()) {
       return;
     }
     localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   private canUseStorage(): boolean {
