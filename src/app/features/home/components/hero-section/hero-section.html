@@ -39,7 +39,7 @@
         class="relative h-full min-h-95 rounded-lg overflow-hidden shadow-md bg-gradient-to-br"
         [class]="'bg-gradient-to-br ' + currentHeroSlide().bg"
       >
-        @for (slide of slides; track slide.title; let i = $index) {
+        @for (slide of slides(); track slide.title; let i = $index) {
           <div
             class="absolute inset-0 transition-opacity duration-700"
             [class.opacity-100]="i === currentSlide()"
@@ -99,7 +99,7 @@
         </button>
 
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          @for (slide of slides; track slide.title; let i = $index) {
+          @for (slide of slides(); track slide.title; let i = $index) {
             <button
               (click)="goTo(i)"
               [attr.aria-label]="'Go to slide ' + (i + 1)"

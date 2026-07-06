@@ -1,10 +1,10 @@
 <div class="bg-[#F1F1F1] min-h-screen">
-  <app-home-hero />
+  <app-home-hero [slides]="banners()" />
   <app-home-brand-bar />
-  <app-home-featured-product />
-  <app-home-product-row title="Our Headphones" [products]="headphones" />
+  <app-home-featured-product [product]="featuredProduct()" />
+  <app-home-product-row title="Our Headphones" [products]="headphones()" />
   <app-home-promo-banners />
-  <app-home-product-row title="Our Tablets" [products]="tablets" />
+  <app-home-product-row title="Our Tablets" [products]="tablets()" />
   <app-home-laptops-section />
   <app-home-newsletter-app-promo />
 </div>

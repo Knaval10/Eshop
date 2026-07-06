@@ -8,26 +8,38 @@
           class="inline-block bg-[#1A1A1A] text-white text-xs font-bold uppercase px-3 py-1 rounded mb-3"
           >Check out this</span
         >
-        <h2 class="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-2">Samsung Galaxy Z Fold 5</h2>
-        <p class="text-gray-600 mb-4">Foldable. Powerful. Unlike any phone you've used.</p>
-        <ul class="text-sm text-gray-600 space-y-1 mb-4">
-          <li>• 7.6" Dynamic AMOLED 2X Display</li>
-          <li>• Snapdragon 8 Gen 2 · 12GB RAM</li>
-          <li>• 512GB Storage</li>
-        </ul>
-        <div class="flex items-baseline gap-3 mb-5">
-          <span class="text-3xl font-bold text-[#00B127]">$1,799</span>
-          <span class="text-lg text-gray-400 line-through">$1,999</span>
-        </div>
-        <button
-          class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-6 py-3 rounded-md transition"
-        >
-          Go To Product →
-        </button>
+        <h2 class="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-2">{{ product()?.name || 'Samsung Galaxy Z Fold 5' }}</h2>
+        <p class="text-gray-600 mb-4">{{ product()?.description || "Foldable. Powerful. Unlike any phone you've used." }}</p>
+        @if (product()) {
+          <div class="flex items-baseline gap-3 mb-5">
+            <span class="text-3xl font-bold text-[#00B127]">${{ product().price }}</span>
+          </div>
+          <a
+            [routerLink]="['/products', product().id || product()._id]"
+            class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-6 py-3 rounded-md transition inline-block"
+          >
+            Go To Product →
+          </a>
+        } @else {
+          <ul class="text-sm text-gray-600 space-y-1 mb-4">
+            <li>• 7.6" Dynamic AMOLED 2X Display</li>
+            <li>• Snapdragon 8 Gen 2 · 12GB RAM</li>
+            <li>• 512GB Storage</li>
+          </ul>
+          <div class="flex items-baseline gap-3 mb-5">
+            <span class="text-3xl font-bold text-[#00B127]">$1,799</span>
+            <span class="text-lg text-gray-400 line-through">$1,999</span>
+          </div>
+          <button
+            class="bg-[#00B127] hover:bg-[#009621] text-white font-semibold px-6 py-3 rounded-md transition"
+          >
+            Go To Product →
+          </button>
+        }
       </div>
       <img
-        src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop"
-        alt="Galaxy Z Fold"
+        [src]="product()?.imageUrl || product()?.image || 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop'"
+        [alt]="product()?.name || 'Galaxy Z Fold'"
         class="w-full md:w-72 h-72 object-cover rounded-lg"
       />
     </div>
