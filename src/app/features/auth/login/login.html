@@ -12,7 +12,10 @@
       </label>
 
       <label class="block">
-        <span class="text-sm font-medium text-[#1A1A1A]">Password</span>
+        <div class="flex justify-between items-center">
+          <span class="text-sm font-medium text-[#1A1A1A]">Password</span>
+          <a routerLink="/forgot-password" class="text-xs text-[#00B127] hover:underline font-semibold">Forgot Password?</a>
+        </div>
         <input type="password" required [ngModel]="form().password"
           (ngModelChange)="form.set({ ...form(), password: $event })" name="password"
           class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:border-[#00B127]" />

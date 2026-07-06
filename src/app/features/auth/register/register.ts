@@ -31,18 +31,25 @@ export class Register {
       return;
     }
 
-    const result = this.authStore.register({
-      name: this.form().name,
-      email: this.form().email,
-      password: this.form().password,
-    });
+    this.authStore
+      .register({
+        name: this.form().name,
+        email: this.form().email,
+        password: this.form().password,
+      })
+      .subscribe({
+        next: (result) => {
+          if (!result.ok) {
+            this.error.set(result.message);
+            return;
+          }
 
-    if (!result.ok) {
-      this.error.set(result.message);
-      return;
-    }
-
-    const redirect = this.route.snapshot.queryParamMap.get('redirect') || '/';
-    this.router.navigateByUrl(redirect);
+          const redirect = this.route.snapshot.queryParamMap.get('redirect') || '/';
+          this.router.navigateByUrl(redirect);
+        },
+        error: () => {
+          this.error.set('Registration failed. Please try again.');
+        },
+      });
   }
 }
