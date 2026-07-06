@@ -13,12 +13,26 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/register/register').then((m) => m.Register),
   },
   {
+    path: 'forgot-password',
+    canActivate: [guestOnlyGuard],
+    loadComponent: () => import('./features/auth/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+  },
+  {
+    path: 'reset-password/:token',
+    canActivate: [guestOnlyGuard],
+    loadComponent: () => import('./features/auth/reset-password/reset-password').then((m) => m.ResetPassword),
+  },
+  {
     path: '',
     loadComponent: () => import('./features/home/home').then((m) => m.Home),
   },
   {
     path: 'about',
     loadComponent: () => import('./features/about/about').then((m) => m.About),
+  },
+  {
+    path: 'contact',
+    loadComponent: () => import('./features/contact/contact').then((m) => m.Contact),
   },
   {
     path: 'products',
@@ -47,9 +61,19 @@ export const routes: Routes = [
     loadComponent: () => import('./features/cart/cart').then((m) => m.Cart),
   },
   {
+    path: 'wishlist',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/wishlist/wishlist').then((m) => m.Wishlist),
+  },
+  {
     path: 'checkout',
     canActivate: [authGuard],
     loadComponent: () => import('./features/checkout/checkout').then((m) => m.Checkout),
+  },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/user/profile/profile').then((m) => m.Profile),
   },
   {
     path: '**',

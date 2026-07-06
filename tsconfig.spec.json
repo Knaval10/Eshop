@@ -1,0 +1,18 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "vitest/globals"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@maplibre/ngx-maplibre-gl": ["src/app/features/map/ngx-maplibre-gl-mock.ts"]
+    }
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
