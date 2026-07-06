@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Map } from './map';
 
 describe('Map', () => {
@@ -20,3 +19,4 @@ describe('Map', () => {
     expect(component).toBeTruthy();
   });
 });
+
