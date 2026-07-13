@@ -98,11 +98,6 @@ export class AuthStore {
       return;
     }
 
-    // Proactively clean up legacy plain-text credentials stored in local storage
-    if (localStorage.getItem(LEGACY_USERS_KEY)) {
-      localStorage.removeItem(LEGACY_USERS_KEY);
-    }
-
     const token = localStorage.getItem(TOKEN_KEY);
     const serialized = localStorage.getItem(SESSION_KEY);
     if (!token || !serialized) {
